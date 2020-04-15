@@ -1,0 +1,17 @@
+.particle-canvas {
+
+  transition: 0.5s;
+
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  canvas {
+    opacity: 1;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}

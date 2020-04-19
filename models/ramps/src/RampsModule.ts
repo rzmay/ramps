@@ -1,5 +1,6 @@
 import RampsClock from './RampsClock';
 import Particle from './Particle';
+import ParticleSystem from './ParticleSystem';
 
 abstract class RampsModule {
   // Used to keep track of deltaTime (default to singleton)
@@ -10,10 +11,10 @@ abstract class RampsModule {
   }
 
   // Used to set values on particle start
-  abstract setup(Particle): void;
+  abstract setup(particle: Particle, particleSystem: ParticleSystem): void;
 
   // Used to update particles each frame
-  abstract influence(Particle): void;
+  abstract influence(particle: Particle): void;
 
   execute(particles: Particle[]) {
     particles.forEach((particle) => { this.influence(particle); });

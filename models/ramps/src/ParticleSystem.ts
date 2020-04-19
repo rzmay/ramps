@@ -27,6 +27,8 @@ class ParticleSystem {
 
     startAlpha : number = 1.0;
 
+    startTime: number;
+
     constructor(options: ParticleSystemSettings) {
       this.duration = options.duration ?? this.duration;
       this.lifetime = options.lifetime ?? this.lifetime;
@@ -36,6 +38,8 @@ class ParticleSystem {
       this.startScale = options.startScale ?? this.startScale;
       this.startColor = options.startColor ?? this.startColor;
       this.startAlpha = options.startAlpha ?? this.startAlpha;
+
+      this.startTime = new Date().getTime();
     }
 }
 

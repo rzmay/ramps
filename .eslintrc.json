@@ -51,7 +51,8 @@
         "import/newline-after-import": "off",
         "lines-between-class-members": "off",
         "no-underscore-dangle": "off",
-        "no-unused-vars": "warn"
+        "no-unused-vars": "warn",
+        "max-len": "warn"
     },
     "settings": {
         "import/resolver": {

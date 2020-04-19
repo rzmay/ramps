@@ -1,3 +1,5 @@
+import Perlin from './helpers/Perlin';
+
 class Easing {
   /* Static properties */
   static linear = Easing.polynomial(1);
@@ -20,8 +22,6 @@ class Easing {
       return -(2 ** (10 * (t - 1))) * Math.sin((t - 1.1) * 5 * Math.PI);
     }
   });
-
-  static backTenth = Easing.back(1.70158);
 
   /* Properties */
   in: (t: number)=>number;
@@ -62,6 +62,30 @@ class Easing {
 
   static back(intensity: number = 1.70158): Easing {
     return new Easing((t) => (t ** 2) * ((intensity + 1) * t - intensity));
+  }
+
+  static stepped(steps: number = 3): Easing {
+    // eslint-disable-next-line no-bitwise
+    return new Easing((t) => ((t * steps) | 0) / steps);
+  }
+
+  static wiggle(amplitude: number = 0.1, waves: number = 3) {
+    return new Easing((t) => t + Math.sin(t * Math.PI * 2 * Math.ceil(waves)) * amplitude);
+  }
+
+  static noise(amplitude: number = 0.1, frequency: number = 1, seed: number = 0) {
+    const perlin = new Perlin(seed);
+    return new Easing((t) => {
+      const margin = 0.1;
+      let multiplier = 1;
+      if (t < margin) {
+        multiplier = t / margin;
+      } else if (t > (1 - margin)) {
+        multiplier = (t - (1 - margin)) / margin;
+      }
+
+      return perlin.noise(t * frequency, 0, 0) * amplitude * multiplier;
+    });
   }
 }
 

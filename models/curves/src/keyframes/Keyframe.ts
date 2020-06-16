@@ -19,11 +19,11 @@ abstract class Keyframe<T> {
       this.outEasing = outEasing ?? inEasing;
     }
 
-    abstract interpolate(keyframe: Keyframe<T>, time: number): T;
+    abstract interpolate(keyframe: Keyframe<T>, time: number, smoothing: number): T;
 
-    interpolateRealtime(keyframe: Keyframe<T>, time: number): T {
+    interpolateRealtime(keyframe: Keyframe<T>, time: number, smoothing: number = 0.25): T {
       const alpha = (time - this.time) / (keyframe.time - this.time);
-      return this.interpolate(keyframe, alpha);
+      return this.interpolate(keyframe, alpha, smoothing);
     }
 }
 

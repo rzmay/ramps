@@ -40,12 +40,14 @@ class Easing {
   }
 
   inverse(): Easing {
-    return new Easing(this.out);
+    return new Easing((t: number) => this.out(t));
   }
 
   /* Static methods */
-  static interpolate(inFunction: Easing, outFunction: Easing, t: number) {
-    return ((outFunction.out(t) * t) + (inFunction.in(t) * (1 - t)));
+  static interpolate(inFunction: Easing, outFunction: Easing, t: number, smoothing: number = 0.25) {
+    let smoothEasing = Easing.polynomial(1/smoothing);
+    let easedTime = Easing.inOut(smoothEasing, smoothEasing, t);
+    return ((outFunction.inOut(t) * easedTime) + (inFunction.inOut(t) * (1 - easedTime)));
   }
 
   static inOut(inFunction: Easing, outFunction: Easing, t: number): number {
@@ -73,10 +75,9 @@ class Easing {
     return new Easing((t) => t + Math.sin(t * Math.PI * 2 * Math.ceil(waves)) * amplitude);
   }
 
-  static noise(amplitude: number = 0.1, frequency: number = 1, seed: number = 0) {
+  static noise(amplitude: number = 0.1, frequency: number = 1, margin = 0.1, seed: number = 0) {
     const perlin = new Perlin(seed);
     return new Easing((t) => {
-      const margin = 0.1;
       let multiplier = 1;
       if (t < margin) {
         multiplier = t / margin;
@@ -84,7 +85,7 @@ class Easing {
         multiplier = (t - (1 - margin)) / margin;
       }
 
-      return perlin.noise(t * frequency, 0, 0) * amplitude * multiplier;
+      return t + (perlin.noise(t * frequency, 0, 0) * amplitude * multiplier) - (0.5 * amplitude * multiplier);
     });
   }
 }

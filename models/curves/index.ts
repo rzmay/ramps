@@ -8,6 +8,9 @@ import Vector3Keyframe from './src/keyframes/Vector3Keyframe';
 import ListKeyframe from './src/keyframes/ListKeyframe';
 import ObjectKeyframe from './src/keyframes/ObjectKeyframe';
 import Curve from './src/Curve';
+import CurveModifier from './src/CurveModifier';
+import Modifiers from './src/modifiers';
+import HSVHelper from './src/helpers/HSVHelper';
 
 export {
   Easing,
@@ -20,4 +23,7 @@ export {
   ListKeyframe,
   ObjectKeyframe,
   Curve,
+  CurveModifier,
+  Modifiers,
+  HSVHelper
 };

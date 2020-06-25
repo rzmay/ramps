@@ -1,6 +1,6 @@
 import Keyframe from './Keyframe';
 import { HSVColor } from '../interfaces/HSVColor';
-import FloatKeyframe from './FloatKeyframe';
+import NumberKeyframe from './NumberKeyframe';
 
 class HSVColorKeyframe extends Keyframe<HSVColor> {
   interpolate(keyframe: HSVColorKeyframe, time: number): HSVColor {
@@ -14,11 +14,11 @@ class HSVColorKeyframe extends Keyframe<HSVColor> {
     };
   }
 
-  toFloatKeyframe(): FloatKeyframe[] {
+  toFloatKeyframe(): NumberKeyframe[] {
     return [
-      new FloatKeyframe(this.time, this.value.h, this.inEasing, this.outEasing),
-      new FloatKeyframe(this.time, this.value.s, this.inEasing, this.outEasing),
-      new FloatKeyframe(this.time, this.value.v, this.inEasing, this.outEasing),
+      new NumberKeyframe(this.time, this.value.h, this.inEasing, this.outEasing),
+      new NumberKeyframe(this.time, this.value.s, this.inEasing, this.outEasing),
+      new NumberKeyframe(this.time, this.value.v, this.inEasing, this.outEasing),
     ];
   }
 }

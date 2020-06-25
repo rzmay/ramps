@@ -3,11 +3,11 @@ import Noise from './Noise';
 import Sine from './Sine';
 import Step from './Step';
 
-const RGB = {
+const Number = {
     Clamp,
     Noise,
     Sine,
     Step,
 };
 
-export default RGB;
+export default Number;

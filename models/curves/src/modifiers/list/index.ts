@@ -3,11 +3,11 @@ import Noise from './Noise';
 import Sine from './Sine';
 import Step from './Step';
 
-const Float = {
+const List = {
     Clamp,
     Noise,
     Sine,
     Step,
 };
 
-export default Float;
+export default List;

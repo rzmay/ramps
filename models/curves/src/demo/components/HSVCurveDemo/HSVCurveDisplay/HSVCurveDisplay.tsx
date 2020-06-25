@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import CanvasJSReact from '../../../lib/canvasjs/canvasjs.react';
 import './HSVCurveDisplay.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Curve, HSVHelper } from '../../../../../../curves';
+import {Curve, ColorHelper, Modifiers } from '../../../../../../curves';
 import { HSVColor } from '../../../../interfaces/HSVColor';
 import { RGBColor } from "../../../../interfaces/RGBColor";
 import TitledColorBar from "../../ColorBar/TitledColorBar/TitledColorBar";
@@ -33,7 +33,7 @@ function HSVCurveDisplay(props: any): React.ReactElement {
         for (let x = 0; x <= curve.duration; x += props.interpolationStep || 0.05)
         {
             let value: HSVColor = curve.evaluate(x);
-            let rgbValue: RGBColor = HSVHelper.HSVtoRGB(value);
+            let rgbValue: RGBColor = ColorHelper.HSVtoRGB(value);
 
             let h_key = {x: x, y: value.h, lineColor: `hsl(${value.h}, 100%, 50%)`};
             let s_key = {x: x, y: value.s, lineColor: `hsl(0, ${value.s}%, 50%)`};
@@ -44,7 +44,7 @@ function HSVCurveDisplay(props: any): React.ReactElement {
             v_keys.push(v_key);
 
             newColorKeys.push({color: rgbValue, time: (x / curve.duration)});
-            newHSLColorKeys.push({color: HSVHelper.HSLtoRGB(value), time: (x / curve.duration)});
+            newHSLColorKeys.push({color: ColorHelper.HSLtoRGB(value), time: (x / curve.duration)});
         }
 
         const options = {
@@ -57,13 +57,11 @@ function HSVCurveDisplay(props: any): React.ReactElement {
                 title: "Saturation & Value",
                 suffix: "%",
                 includeZero: false,
-                maximum: 100,
             },
             axisY2: {
                 title: "Hue",
                 suffix: "º",
                 includeZero: false,
-                maximum: 360,
             },
             axisX: {
                 title: "Time",

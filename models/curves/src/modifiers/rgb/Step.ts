@@ -1,7 +1,7 @@
 import CurveModifier from '../../CurveModifier';
 import { RGBColor } from '../../interfaces/RGBColor';
 
-class RGBStep extends CurveModifier<RGBColor> {
+class Step extends CurveModifier<RGBColor> {
     stepLength: number;
 
     constructor(
@@ -23,4 +23,4 @@ class RGBStep extends CurveModifier<RGBColor> {
     }
 }
 
-export default RGBStep;
+export default Step;

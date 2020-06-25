@@ -1,12 +1,12 @@
-import HSVClamp from './HSVClamp';
-import HSVNoise from './HSVNoise';
-import HSVSine from './HSVSine';
+import Clamp from './Clamp';
+import Noise from './Noise';
+import Sine from './Sine';
 import HSVStep from './HSVStep';
 
 const HSV = {
-    HSVClamp,
-    HSVNoise,
-    HSVSine,
+    Clamp,
+    Noise,
+    Sine,
     HSVStep,
 };
 

@@ -1,7 +1,7 @@
 import EndBehavior from './EndBehavior';
 import Keyframe from './keyframes/Keyframe';
 import Easing from './Easing';
-import FloatKeyframe from './keyframes/FloatKeyframe';
+import NumberKeyframe from './keyframes/NumberKeyframe';
 import {RGBColor} from './interfaces/RGBColor';
 import RGBColorKeyframe from './keyframes/RGBColorKeyframe';
 import {Vector3} from './interfaces/Vector3';
@@ -11,7 +11,9 @@ import {HSVColor} from './interfaces/HSVColor';
 import ListKeyframe from './keyframes/ListKeyframe';
 import ObjectKeyframe from './keyframes/ObjectKeyframe';
 import CurveModifier from "./CurveModifier";
-import {raw} from "express";
+import BooleanKeyframe from "./keyframes/BooleanKeyframe";
+import {StringKeyframeTrack} from "three";
+import StringKeyframe from "./keyframes/StringKeyframe";
 
 class Curve<T> {
     static increaseFloat: Curve<number> = Curve.floatBuilder(0, 1);
@@ -164,7 +166,15 @@ class Curve<T> {
     }
 
     static floatBuilder(inValue: number, outValue: number, duration = 1, easing: Easing = Easing.cubic): Curve<number> {
-        return Curve.builder<number>(FloatKeyframe, inValue, outValue, duration, easing);
+        return Curve.builder<number>(NumberKeyframe, inValue, outValue, duration, easing);
+    }
+
+    static booleanBuilder(inValue: boolean, outValue: boolean, duration = 1, easing: Easing = Easing.cubic): Curve<boolean> {
+        return Curve.builder<boolean>(BooleanKeyframe, inValue, outValue, duration, easing);
+    }
+
+    static stringBuilder(inValue: string, outValue: string, duration = 1, easing: Easing = Easing.cubic): Curve<string> {
+        return Curve.builder<string>(StringKeyframe, inValue, outValue, duration, easing);
     }
 
     static rgbColorBuilder(inValue: RGBColor, outValue: RGBColor, duration = 1, easing: Easing = Easing.cubic): Curve<RGBColor> {

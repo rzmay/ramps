@@ -1,9 +1,9 @@
 import CurveModifier from '../../CurveModifier';
 import { RGBColor } from '../../interfaces/RGBColor';
-import { SineModifierBlendMode } from '../float/Sine';
+import { SineModifierBlendMode } from '../number/Sine';
 
 
-class RGBSine extends CurveModifier<RGBColor> {
+class Sine extends CurveModifier<RGBColor> {
     amplitude: number;
     wavelength: number;
     phaseOffset: number;
@@ -69,4 +69,4 @@ class RGBSine extends CurveModifier<RGBColor> {
     }
 }
 
-export default RGBSine;
+export default Sine;

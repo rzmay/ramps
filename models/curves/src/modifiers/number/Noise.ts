@@ -1,11 +1,11 @@
 import CurveModifier from '../../CurveModifier';
-import Perlin from '../../helpers/Perlin';
+import SimplexNoise from 'simplex-noise';
 
 class Noise extends CurveModifier<number> {
     amplitude: number;
     frequency: number;
 
-    private perlin: Perlin;
+    private simplex: SimplexNoise;
 
     constructor(
       amplitude = 0.1,
@@ -19,11 +19,11 @@ class Noise extends CurveModifier<number> {
       this.amplitude = amplitude;
       this.frequency = frequency;
 
-      this.perlin = new Perlin(seed);
+      this.simplex = new SimplexNoise(seed.toString());
     }
 
     protected _modify(value: number, time: number): number {
-      return value - (this.amplitude / 2) + this.perlin.noise(time * this.frequency, 0, 0) * this.amplitude;
+      return value - (this.amplitude / 2) + this.simplex.noise2D(time * this.frequency, 0) * this.amplitude;
     }
 }
 

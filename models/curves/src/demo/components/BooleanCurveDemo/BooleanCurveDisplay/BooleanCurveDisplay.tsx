@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import CanvasJSReact from '../../../lib/canvasjs/canvasjs.react';
-import './CurveDisplay.scss';
+import './BooleanCurveDisplay.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Curve, Modifiers} from '../../../../../../curves';
 
 const CanvasJS = CanvasJSReact.CanvasJS;
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-function CurveDisplay(props: any): React.ReactElement {
+function BooleanCurveDisplay(props: any): React.ReactElement {
     let [options, setOptions] = useState({});
 
     useEffect(()=>{
-        let curve: Curve<number> = props.curve ?? Curve.floatBuilder(0, 1, 10);
+        let curve: Curve<boolean> = props.curve ?? Curve.booleanBuilder(false, true, 10);
+
+        curve.addModifier(new Modifiers.Boolean.Sine())
 
         let keys: {x: number, y: number}[] = [];
         for (let x = 0; x <= curve.duration; x += props.interpolationStep || 0.05)
         {
-            let key = {x: x, y: curve.evaluate(x)}
+            let key = {x: x, y: curve.evaluate(x) ? 1 : 0 }
             keys.push(key);
         }
 
@@ -36,7 +38,7 @@ function CurveDisplay(props: any): React.ReactElement {
             },
             data: [
                 {
-                    type: "spline",
+                    type: "line",
                     toolTipContent: "Time {x}: {y}",
                     dataPoints: keys,
                 }
@@ -57,4 +59,4 @@ function CurveDisplay(props: any): React.ReactElement {
     );
 }
 
-export default CurveDisplay;
+export default BooleanCurveDisplay;

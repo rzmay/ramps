@@ -1,20 +1,39 @@
 import Keyframe from './Keyframe';
-import FloatKeyframe from './FloatKeyframe';
+import NumberKeyframe from './NumberKeyframe';
+import Easing from "../Easing";
 
 class ListKeyframe extends Keyframe<number[]> {
-  interpolate(keyframe: ListKeyframe, time: number): number[] {
-    const floatKeyframes = this.toFloatKeyframes();
-    const nextFloatKeyframes = keyframe.toFloatKeyframes();
+    clamp: boolean;
 
-    if (floatKeyframes.length <= nextFloatKeyframes.length) {
-      return floatKeyframes.map((v, i) => v.interpolate(nextFloatKeyframes[i], time));
+    constructor(
+        time: number,
+        value: number[],
+        inEasing: Easing = Easing.cubic,
+        outEasing: Easing | undefined = undefined,
+        clamp: boolean = false,
+    ) {
+        super(time, value, inEasing, outEasing);
+
+        this.clamp = clamp;
     }
-    return nextFloatKeyframes.map((v, i) => v.interpolate(floatKeyframes[i], 1 - time));
-  }
 
-  toFloatKeyframes(): FloatKeyframe[] {
-    return this.value.map((v) => new FloatKeyframe(this.time, v, this.inEasing, this.outEasing));
-  }
+    interpolate(keyframe: ListKeyframe, time: number): number[] {
+        const numberKeyframes = this.toNumberKeyframes();
+        const nextNumberKeyframes = keyframe.toNumberKeyframes();
+        const defaultKeyframe = new NumberKeyframe(keyframe.time, 0, this.inEasing);
+        const defaultNextKeyframe = new NumberKeyframe(this.time, 0, keyframe.inEasing);
+
+        const shorter = numberKeyframes.length <= nextNumberKeyframes.length;
+        if (this.clamp ? shorter : !shorter) {
+            return numberKeyframes.map((v, i) => v.interpolate(nextNumberKeyframes[i] ?? defaultKeyframe, time));
+        }
+
+        return nextNumberKeyframes.map((v, i) => v.interpolate(numberKeyframes[i] ?? defaultNextKeyframe, 1 - time));
+    }
+
+    toNumberKeyframes(): NumberKeyframe[] {
+        return this.value.map((v) => new NumberKeyframe(this.time, v, this.inEasing, this.outEasing));
+    }
 }
 
 export default ListKeyframe;

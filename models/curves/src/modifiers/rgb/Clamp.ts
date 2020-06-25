@@ -1,7 +1,7 @@
 import CurveModifier from '../../CurveModifier';
 import { RGBColor } from "../../interfaces/RGBColor";
 
-class RGBClamp extends CurveModifier<RGBColor> {
+class Clamp extends CurveModifier<RGBColor> {
     max: RGBColor;
     min: RGBColor;
 
@@ -35,4 +35,4 @@ class RGBClamp extends CurveModifier<RGBColor> {
     }
 }
 
-export default RGBClamp;
+export default Clamp;

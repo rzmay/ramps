@@ -1,6 +1,6 @@
 import Keyframe from './Keyframe';
 import { RGBColor } from '../interfaces/RGBColor';
-import FloatKeyframe from './FloatKeyframe';
+import NumberKeyframe from './NumberKeyframe';
 
 class RGBColorKeyframe extends Keyframe<RGBColor> {
   interpolate(keyframe: RGBColorKeyframe, time: number): RGBColor {
@@ -14,11 +14,11 @@ class RGBColorKeyframe extends Keyframe<RGBColor> {
     };
   }
 
-  toFloatKeyframe(): FloatKeyframe[] {
+  toFloatKeyframe(): NumberKeyframe[] {
     return [
-      new FloatKeyframe(this.time, this.value.r, this.inEasing, this.outEasing),
-      new FloatKeyframe(this.time, this.value.g, this.inEasing, this.outEasing),
-      new FloatKeyframe(this.time, this.value.b, this.inEasing, this.outEasing),
+      new NumberKeyframe(this.time, this.value.r, this.inEasing, this.outEasing),
+      new NumberKeyframe(this.time, this.value.g, this.inEasing, this.outEasing),
+      new NumberKeyframe(this.time, this.value.b, this.inEasing, this.outEasing),
     ];
   }
 }

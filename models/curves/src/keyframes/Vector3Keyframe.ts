@@ -1,6 +1,6 @@
 import Keyframe from './Keyframe';
 import { Vector3 } from '../interfaces/Vector3';
-import FloatKeyframe from './FloatKeyframe';
+import NumberKeyframe from './NumberKeyframe';
 
 class Vector3Keyframe extends Keyframe<Vector3> {
   interpolate(keyframe: Vector3Keyframe, time: number): Vector3 {
@@ -14,11 +14,11 @@ class Vector3Keyframe extends Keyframe<Vector3> {
     };
   }
 
-  toFloatKeyframe(): FloatKeyframe[] {
+  toFloatKeyframe(): NumberKeyframe[] {
     return [
-      new FloatKeyframe(this.time, this.value.x, this.inEasing, this.outEasing),
-      new FloatKeyframe(this.time, this.value.y, this.inEasing, this.outEasing),
-      new FloatKeyframe(this.time, this.value.z, this.inEasing, this.outEasing),
+      new NumberKeyframe(this.time, this.value.x, this.inEasing, this.outEasing),
+      new NumberKeyframe(this.time, this.value.y, this.inEasing, this.outEasing),
+      new NumberKeyframe(this.time, this.value.z, this.inEasing, this.outEasing),
     ];
   }
 }

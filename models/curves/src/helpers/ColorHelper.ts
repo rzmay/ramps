@@ -3,8 +3,11 @@ import { HSVColor } from '../interfaces/HSVColor';
 import { RGBColor } from '../interfaces/RGBColor';
 
 function normalizeHSV(color: HSVColor): HSVColor {
+    let modHue = color.h%360;
+    if (modHue < 0) modHue = 360 + modHue;
+
     return {
-        h: color.h%360,
+        h: modHue,
         s: Math.min(Math.max(color.s, 0), 100),
         v: Math.min(Math.max(color.v, 0), 100),
     }
@@ -44,7 +47,7 @@ function RGBtoHSL(color: RGBColor): HSVColor {
     return {h: hsvList[0], s: hsvList[1], v: hsvList[2]};
 }
 
-const HSVHelper = {
+const ColorHelper = {
     normalizeHSV,
     HSVtoRGB,
     HSLtoRGB,
@@ -54,4 +57,4 @@ const HSVHelper = {
     RGBtoHSL,
 }
 
-export default HSVHelper;
+export default ColorHelper;

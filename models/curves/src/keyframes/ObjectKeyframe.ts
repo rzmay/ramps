@@ -1,5 +1,5 @@
 import Keyframe from './Keyframe';
-import FloatKeyframe from './FloatKeyframe';
+import NumberKeyframe from './NumberKeyframe';
 
 class ObjectKeyframe extends Keyframe<object> {
   interpolate(keyframe: ObjectKeyframe, time: number): object {
@@ -14,14 +14,14 @@ class ObjectKeyframe extends Keyframe<object> {
     return result;
   }
 
-  floatKeyframe(key: any): FloatKeyframe {
+  floatKeyframe(key: any): NumberKeyframe {
     if (this.value[key] === undefined
             || typeof this.value[key] !== 'number'
     ) {
-      return new FloatKeyframe(this.time, 0, this.inEasing, this.outEasing);
+      return new NumberKeyframe(this.time, 0, this.inEasing, this.outEasing);
     }
 
-    return new FloatKeyframe(this.time, this.value[key] as number, this.inEasing, this.outEasing);
+    return new NumberKeyframe(this.time, this.value[key] as number, this.inEasing, this.outEasing);
   }
 }
 

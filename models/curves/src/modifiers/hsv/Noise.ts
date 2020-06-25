@@ -1,14 +1,14 @@
 import CurveModifier from '../../CurveModifier';
-import Perlin from '../../helpers/Perlin';
+import SimplexNoise from 'simplex-noise';
 import { HSVColor } from '../../interfaces/HSVColor';
 
-class HSVNoise extends CurveModifier<HSVColor> {
+class Noise extends CurveModifier<HSVColor> {
     amplitude: number;
     frequency: number;
 
-    perlinH: Perlin;
-    perlinS: Perlin;
-    perlinV: Perlin;
+    simplexH: SimplexNoise;
+    simplexS: SimplexNoise;
+    simplexV: SimplexNoise;
 
     constructor(
         amplitude = 25,
@@ -22,16 +22,16 @@ class HSVNoise extends CurveModifier<HSVColor> {
         this.amplitude = amplitude;
         this.frequency = frequency;
 
-        this.perlinH = new Perlin(seed);
-        this.perlinS = new Perlin(seed + 1);
-        this.perlinV = new Perlin(seed + 2);
+        this.simplexH = new SimplexNoise(seed.toString());
+        this.simplexS = new SimplexNoise((seed + 1).toString());
+        this.simplexV = new SimplexNoise((seed + 2).toString());
     }
 
     protected _modify(value: HSVColor, time: number): HSVColor {
         // Amplitude is scaled for saturation and value; multiply hue by 36 to preserve scale
-        const noiseH = this.perlinH.noise(time * this.frequency, 0, 0) * this.amplitude * 3.6;
-        const noiseS = this.perlinS.noise(time * this.frequency, 0, 0) * this.amplitude;
-        const noiseV = this.perlinV.noise(time * this.frequency, 0, 0) * this.amplitude;
+        const noiseH = this.simplexH.noise2D(time * this.frequency, 0) * this.amplitude * 3.6;
+        const noiseS = this.simplexS.noise2D(time * this.frequency, 0) * this.amplitude;
+        const noiseV = this.simplexV.noise2D(time * this.frequency, 0) * this.amplitude;
 
         const result = {
             h: value.h + noiseH,
@@ -43,4 +43,4 @@ class HSVNoise extends CurveModifier<HSVColor> {
     }
 }
 
-export default HSVNoise;
+export default Noise;

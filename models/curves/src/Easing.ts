@@ -1,4 +1,4 @@
-import Perlin from './helpers/Perlin';
+import SimplexNoise from 'simplex-noise';
 
 class Easing {
   /* Static properties */
@@ -76,7 +76,7 @@ class Easing {
   }
 
   static noise(amplitude: number = 0.1, frequency: number = 1, margin = 0.1, seed: number = 0) {
-    const perlin = new Perlin(seed);
+    const simplex = new SimplexNoise(seed.toString());
     return new Easing((t) => {
       let multiplier = 1;
       if (t < margin) {
@@ -85,7 +85,7 @@ class Easing {
         multiplier = (t - (1 - margin)) / margin;
       }
 
-      return t + (perlin.noise(t * frequency, 0, 0) * amplitude * multiplier) - (0.5 * amplitude * multiplier);
+      return t + (simplex.noise2D(t * frequency, 0) * amplitude * multiplier) - (0.5 * amplitude * multiplier);
     });
   }
 }

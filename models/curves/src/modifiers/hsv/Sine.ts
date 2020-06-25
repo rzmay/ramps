@@ -1,9 +1,9 @@
 import CurveModifier from '../../CurveModifier';
 import { HSVColor } from '../../interfaces/HSVColor';
-import { SineModifierBlendMode } from '../float/Sine';
+import { SineModifierBlendMode } from '../number/Sine';
 
 
-class HSVSine extends CurveModifier<HSVColor> {
+class Sine extends CurveModifier<HSVColor> {
     amplitude: number;
     wavelength: number;
     phaseOffset: number;
@@ -69,4 +69,4 @@ class HSVSine extends CurveModifier<HSVColor> {
     }
 }
 
-export default HSVSine;
+export default Sine;

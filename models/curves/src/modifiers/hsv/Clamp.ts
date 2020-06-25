@@ -1,7 +1,7 @@
 import CurveModifier from '../../CurveModifier';
 import { HSVColor } from "../../interfaces/HSVColor";
 
-class HSVClamp extends CurveModifier<HSVColor> {
+class Clamp extends CurveModifier<HSVColor> {
     max: HSVColor;
     min: HSVColor;
 
@@ -26,4 +26,4 @@ class HSVClamp extends CurveModifier<HSVColor> {
     }
 }
 
-export default HSVClamp;
+export default Clamp;

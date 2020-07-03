@@ -1,5 +1,5 @@
-import CurveModifier from '../../CurveModifier';
 import SimplexNoise from 'simplex-noise';
+import CurveModifier from '../../CurveModifier';
 
 class Noise extends CurveModifier<number[]> {
     amplitude: number;
@@ -11,8 +11,8 @@ class Noise extends CurveModifier<number[]> {
       amplitude = 0.1,
       frequency = 1,
       seed = 0,
-      rangeStart = 0,
-      rangeEnd = 1,
+      rangeStart: number | undefined = undefined,
+      rangeEnd: number | undefined = undefined,
     ) {
       super(rangeStart, rangeEnd);
 

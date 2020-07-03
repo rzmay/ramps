@@ -4,10 +4,10 @@ import Sine from './Sine';
 import Step from './Step';
 
 const List = {
-    Clamp,
-    Noise,
-    Sine,
-    Step,
+  Clamp,
+  Noise,
+  Sine,
+  Step,
 };
 
 export default List;

@@ -7,8 +7,8 @@ class Clamp extends CurveModifier<number[]> {
     constructor(
       min = 0,
       max = 1,
-      rangeStart = 0,
-      rangeEnd = 1,
+      rangeStart: number | undefined = undefined,
+      rangeEnd: number | undefined = undefined,
     ) {
       super(rangeStart, rangeEnd);
 

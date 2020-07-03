@@ -8,15 +8,15 @@ import Home from './pages/Home/Home';
 import CurveDemo from '../models/curves/src/demo/components/CurveDemo/CurveDemo';
 import RGBCurveDemo from '../models/curves/src/demo/components/RGBCurveDemo/RGBCurveDemo';
 import HSVCurveDemo from '../models/curves/src/demo/components/HSVCurveDemo/HSVCurveDemo';
-import ListCurveDemo from "../models/curves/src/demo/components/ListCurveDemo/ListCurveDemo";
-import BooleanCurveDemo from "../models/curves/src/demo/components/BooleanCurveDemo/BooleanCurveDemo";
-import StringCurveDemo from "../models/curves/src/demo/components/StringCurveDemo/StringCurveDemo";
+import ListCurveDemo from '../models/curves/src/demo/components/ListCurveDemo/ListCurveDemo';
+import BooleanCurveDemo from '../models/curves/src/demo/components/BooleanCurveDemo/BooleanCurveDemo';
+import StringCurveDemo from '../models/curves/src/demo/components/StringCurveDemo/StringCurveDemo';
 
 render((
   <BrowserRouter>
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route exact path="/curves" component={StringCurveDemo} />
+      <Route exact path="/curves" component={CurveDemo} />
     </Switch>
   </BrowserRouter>
 ), document.getElementById('root'));

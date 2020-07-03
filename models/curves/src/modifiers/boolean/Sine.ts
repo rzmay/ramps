@@ -9,47 +9,47 @@ class Sine extends CurveModifier<boolean> {
     blend: SineModifierBlendMode;
 
     constructor(
-        blendMode = SineModifierBlendMode.Replace,
-        amplitude = 0.75,
-        wavelength = 1,
-        phaseOffset = 0,
-        rangeStart = 0,
-        rangeEnd = 1,
+      blendMode = SineModifierBlendMode.Replace,
+      amplitude = 0.75,
+      wavelength = 1,
+      phaseOffset = 0,
+      rangeStart: number | undefined = undefined,
+      rangeEnd: number | undefined = undefined,
     ) {
-        super(rangeStart, rangeEnd);
+      super(rangeStart, rangeEnd);
 
-        this.amplitude = amplitude;
-        this.wavelength = wavelength;
-        this.phaseOffset = phaseOffset;
+      this.amplitude = amplitude;
+      this.wavelength = wavelength;
+      this.phaseOffset = phaseOffset;
 
-        this.blend = blendMode;
+      this.blend = blendMode;
     }
 
     protected _modify(value: boolean, time: number): boolean {
-        return this._modifyNumber(value, time) > 0.5;
+      return this._modifyNumber(value, time) > 0.5;
     }
 
     private _modifyNumber(value: boolean, time: number): number {
-        const numberValue = value ? 1 : 0;
-        const waveValue = Math.sin(
-            (time - this.phaseOffset)
+      const numberValue = value ? 1 : 0;
+      const waveValue = Math.sin(
+        (time - this.phaseOffset)
             * 2 * Math.PI * (1 / this.wavelength),
-        ) * this.amplitude;
+      ) * this.amplitude;
 
-        switch (this.blend) {
-            case SineModifierBlendMode.Replace:
-                return numberValue + waveValue;
-            case SineModifierBlendMode.Add:
-                return numberValue + waveValue + (0.5 * this.amplitude);
-            case SineModifierBlendMode.Subtract:
-                return numberValue + waveValue - (0.5 * this.amplitude);
-            case SineModifierBlendMode.Multiply:
-                return numberValue * waveValue;
-            case SineModifierBlendMode.MultiplyPositive:
-                return numberValue * (waveValue + this.amplitude) / 2
-            default:
-                return numberValue; // Unreachable
-        }
+      switch (this.blend) {
+        case SineModifierBlendMode.Replace:
+          return numberValue + waveValue;
+        case SineModifierBlendMode.Add:
+          return numberValue + waveValue + (0.5 * this.amplitude);
+        case SineModifierBlendMode.Subtract:
+          return numberValue + waveValue - (0.5 * this.amplitude);
+        case SineModifierBlendMode.Multiply:
+          return numberValue * waveValue;
+        case SineModifierBlendMode.MultiplyPositive:
+          return numberValue * (waveValue + this.amplitude) / 2;
+        default:
+          return numberValue; // Unreachable
+      }
     }
 }
 

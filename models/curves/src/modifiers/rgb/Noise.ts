@@ -14,8 +14,8 @@ class Noise extends CurveModifier<RGBColor> {
       amplitude = 25,
       frequency = 1,
       seed = 0,
-      rangeStart = 0,
-      rangeEnd = 1,
+      rangeStart: number | undefined = undefined,
+      rangeEnd: number | undefined = undefined,
     ) {
       super(rangeStart, rangeEnd);
 

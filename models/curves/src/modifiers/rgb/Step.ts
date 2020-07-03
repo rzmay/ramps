@@ -6,8 +6,8 @@ class Step extends CurveModifier<RGBColor> {
 
     constructor(
       stepLength = 25,
-      rangeStart = 0,
-      rangeEnd = 1,
+      rangeStart: number | undefined = undefined,
+      rangeEnd: number | undefined = undefined,
     ) {
       super(rangeStart, rangeEnd);
 
@@ -16,9 +16,9 @@ class Step extends CurveModifier<RGBColor> {
 
     protected _modify(value: RGBColor, time: number): RGBColor {
       return {
-          r: Math.floor(value.r / this.stepLength) * this.stepLength,
-          g: Math.floor(value.g / this.stepLength) * this.stepLength,
-          b: Math.floor(value.b / this.stepLength) * this.stepLength,
+        r: Math.floor(value.r / this.stepLength) * this.stepLength,
+        g: Math.floor(value.g / this.stepLength) * this.stepLength,
+        b: Math.floor(value.b / this.stepLength) * this.stepLength,
       };
     }
 }

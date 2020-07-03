@@ -1,13 +1,13 @@
 import Clamp from './Clamp';
 import Noise from './Noise';
 import Sine from './Sine';
-import HSVStep from './HSVStep';
+import Step from './Step';
 
 const HSV = {
-    Clamp,
-    Noise,
-    Sine,
-    HSVStep,
+  Clamp,
+  Noise,
+  Sine,
+  Step,
 };
 
 export default HSV;

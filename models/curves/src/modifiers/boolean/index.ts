@@ -2,8 +2,8 @@ import Noise from './Noise';
 import Sine from './Sine';
 
 const Boolean = {
-    Noise,
-    Sine,
+  Noise,
+  Sine,
 };
 
 export default Boolean;

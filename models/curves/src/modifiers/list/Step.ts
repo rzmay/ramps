@@ -5,8 +5,8 @@ class Step extends CurveModifier<number[]> {
 
     constructor(
       stepLength = 0.2,
-      rangeStart = 0,
-      rangeEnd = 1,
+      rangeStart: number | undefined = undefined,
+      rangeEnd: number | undefined = undefined,
     ) {
       super(rangeStart, rangeEnd);
 
@@ -14,7 +14,7 @@ class Step extends CurveModifier<number[]> {
     }
 
     protected _modify(value: number[], time: number): number[] {
-        return value.map((v) => this._modifySingle(v, time));
+      return value.map((v) => this._modifySingle(v, time));
     }
 
     private _modifySingle(value: number, time: number): number {

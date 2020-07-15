@@ -8,22 +8,22 @@ class BooleanKeyframe extends Keyframe<boolean> {
     protected numberKeyframe: NumberKeyframe;
 
     constructor(
-        time: number,
-        value: boolean,
-        inEasing: Easing = Easing.cubic,
-        outEasing: Easing | undefined = undefined,
-        truthThreshold: number = 0.5,
+      time: number,
+      value: boolean,
+      inEasing: Easing = Easing.cubic,
+      outEasing: Easing | undefined = undefined,
+      truthThreshold = 0.5,
     ) {
-        super(time, value, inEasing, outEasing);
+      super(time, value, inEasing, outEasing);
 
-        this.truthThreshold = truthThreshold;
+      this.truthThreshold = truthThreshold;
 
-        this.numberKeyframe = new NumberKeyframe(time, (value ? 1 : 0), inEasing, outEasing);
+      this.numberKeyframe = new NumberKeyframe(time, (value ? 1 : 0), inEasing, outEasing);
     }
 
     interpolate(keyframe: BooleanKeyframe, time: number): boolean {
-        let value = this.numberKeyframe.interpolate(keyframe.numberKeyframe, time);
-        return value > this.truthThreshold;
+      const value = this.numberKeyframe.interpolate(keyframe.numberKeyframe, time);
+      return value > this.truthThreshold;
     }
 }
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import CanvasJSReact from '../../../lib/canvasjs/canvasjs.react';
 import './CurveDisplay.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Curve, Modifiers, NumberKeyframe, Easing, EndBehavior } from '../../../../..';
+import { Curve, Modifiers, NumberKeyframe, Easing, EndBehavior } from '../../../../..';
 
 const { CanvasJS } = CanvasJSReact;
 const { CanvasJSChart } = CanvasJSReact;
@@ -12,12 +12,9 @@ function CurveDisplay(props: any): React.ReactElement {
 
   useEffect(() => {
     const curve: Curve<number> = props.curve ?? Curve.floatBuilder(0, 1, 10);
-    curve.addKeyframe(new NumberKeyframe(3, 2));
-
-    curve.addModifier(new Modifiers.Number.Noise(0.5, 5, 0));
 
     const keys: {x: number, y: number}[] = [];
-    for (let x = 0; x <= 50; x += props.interpolationStep || 0.05) {
+    for (let x = 0; x <= curve.duration; x += props.interpolationStep || 0.05) {
       const key = { x, y: curve.evaluate(x) };
       keys.push(key);
     }
@@ -35,7 +32,6 @@ function CurveDisplay(props: any): React.ReactElement {
       axisX: {
         title: 'Time',
         interval: 1,
-        maximum: 50,
       },
       data: [
         {

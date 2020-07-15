@@ -3,6 +3,7 @@ import EndBehavior from './EndBehavior';
 import Keyframe from './keyframes/Keyframe';
 import Easing from './Easing';
 import NumberKeyframe from './keyframes/NumberKeyframe';
+import BezierKeyframe, { BezierHandle } from './keyframes/BezierKeyframe';
 import { RGBColor } from './interfaces/RGBColor';
 import RGBColorKeyframe from './keyframes/RGBColorKeyframe';
 import { Vector3 } from './interfaces/Vector3';
@@ -49,12 +50,14 @@ class Curve<T> {
       this.smoothing = smoothing;
 
       this._calculateBounds();
+      this._configureKeyframes();
       this._configureModifiers();
     }
 
     addModifier(modifier: CurveModifier<T>): void {
       this.modifiers.push(modifier);
 
+      this._configureKeyframes();
       this._configureModifiers();
     }
 
@@ -63,6 +66,7 @@ class Curve<T> {
       this.keys.push(keyframe);
       this._calculateBounds();
 
+      this._configureKeyframes();
       this._configureModifiers();
     }
 
@@ -75,12 +79,25 @@ class Curve<T> {
       this.keys.splice(index, 1);
       this._calculateBounds();
 
+      this._configureKeyframes();
       this._configureModifiers();
     }
 
-    evaluate(time: number, modifierStop: number = -1): T {
+    shiftPhase(amount: number) {
+      this.keys.forEach((k) => { k.time += amount; });
+      this._calculateBounds();
+
+      this._configureKeyframes();
+      this._configureModifiers();
+    }
+
+    evaluate(time: number, modifierStop = -1): T {
       const rawValue = this._rawEvaluate(time);
       return this._applyModifiers(rawValue, time, modifierStop);
+    }
+
+    private _configureKeyframes() {
+      this.keys.forEach((k) => k.configure(this));
     }
 
     private _configureModifiers() {
@@ -181,6 +198,25 @@ class Curve<T> {
 
     static floatBuilder(inValue: number, outValue: number, duration = 1, easing: Easing = Easing.cubic): Curve<number> {
       return Curve.builder<number>(NumberKeyframe, inValue, outValue, duration, easing);
+    }
+
+    static bezierBuilder(
+      inValue: number,
+      outValue: number,
+      duration = 1,
+      handleMagnitude = 1,
+      automatic = false,
+    ): Curve<number> {
+      return new Curve<number>([
+        new BezierKeyframe(0, inValue),
+        new BezierKeyframe(duration, outValue),
+      ].map((k) => {
+        k.automaticHandles = automatic;
+        k.inHandle.magnitude = handleMagnitude;
+        k.outHandle.magnitude = handleMagnitude;
+
+        return k;
+      }));
     }
 
     static booleanBuilder(inValue: boolean, outValue: boolean, duration = 1, easing: Easing = Easing.cubic): Curve<boolean> {

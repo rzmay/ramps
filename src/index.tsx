@@ -11,12 +11,13 @@ import HSVCurveDemo from '../models/curves/src/demo/components/HSVCurveDemo/HSVC
 import ListCurveDemo from '../models/curves/src/demo/components/ListCurveDemo/ListCurveDemo';
 import BooleanCurveDemo from '../models/curves/src/demo/components/BooleanCurveDemo/BooleanCurveDemo';
 import StringCurveDemo from '../models/curves/src/demo/components/StringCurveDemo/StringCurveDemo';
+import BezierCurveDemo from '../models/curves/src/demo/components/BezierCurveDemo/BezierCurveDemo';
 
 render((
   <BrowserRouter>
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route exact path="/curves" component={CurveDemo} />
+      <Route exact path="/curves" component={BezierCurveDemo} />
     </Switch>
   </BrowserRouter>
 ), document.getElementById('root'));

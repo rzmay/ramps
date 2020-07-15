@@ -1,4 +1,5 @@
 import Easing from '../Easing';
+import { Curve } from '../..';
 
 abstract class Keyframe<T> {
     time: number;
@@ -21,9 +22,14 @@ abstract class Keyframe<T> {
 
     abstract interpolate(keyframe: Keyframe<T>, time: number, smoothing: number): T;
 
-    interpolateRealtime(keyframe: Keyframe<T>, time: number, smoothing: number = 0.25): T {
+    interpolateRealtime(keyframe: Keyframe<T>, time: number, smoothing = 0.25): T {
       const alpha = (time - this.time) / (keyframe.time - this.time);
       return this.interpolate(keyframe, alpha, smoothing);
+    }
+
+    // Optional configuration for curve dependent keyframes
+    configure(curve: Curve<T>) {
+      // pass
     }
 }
 

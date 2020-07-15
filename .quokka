@@ -1,0 +1,9 @@
+{
+  "plugins": ["alias-quokka-plugin"],
+  "alias": {
+    "@/models/": "./models/"
+  },
+  "babel": {
+    "ts": true
+  }
+}

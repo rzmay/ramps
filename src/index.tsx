@@ -5,7 +5,7 @@ import * as serviceWorker from './serviceWorker';
 
 import './index.css';
 import Home from './pages/Home/Home';
-import CurveDemo from '../models/curves/src/demo/components/CurveDemo/CurveDemo';
+import NumberCurveDemo from '../models/curves/src/demo/components/NumberCurveDemo/NumberCurveDemo';
 import RGBCurveDemo from '../models/curves/src/demo/components/RGBCurveDemo/RGBCurveDemo';
 import HSVCurveDemo from '../models/curves/src/demo/components/HSVCurveDemo/HSVCurveDemo';
 import ListCurveDemo from '../models/curves/src/demo/components/ListCurveDemo/ListCurveDemo';
@@ -17,7 +17,7 @@ render((
   <BrowserRouter>
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route exact path="/curves" component={BezierCurveDemo} />
+      <Route exact path="/curves" component={HSVCurveDemo} />
     </Switch>
   </BrowserRouter>
 ), document.getElementById('root'));

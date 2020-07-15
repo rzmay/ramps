@@ -1,16 +1,16 @@
 import React from 'react';
-import './BooleanCurveDemo.scss';
+import './NumberCurveDemo.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Curve } from '../../../..';
 import CurveDemo from '../CurveDemo/CurveDemo';
 
-function BooleanCurveDemo(): React.ReactElement {
+function NumberCurveDemo(): React.ReactElement {
   return (
-    <CurveDemo <boolean>
-      title="Boolean Curve Demo"
-      curve={Curve.booleanBuilder(false, true, 10)}
+    <CurveDemo<number>
+      title="Number Curve Demo"
+      curve={Curve.floatBuilder(0, 1, 10)}
       displayGenerator={
-          (curve: Curve<boolean>, keys: { x: number, y: boolean }[]) => ({
+          (curve: Curve<number>, keys: { x: number, y: number }[]) => ({
             animationEnabled: true,
             theme: 'light2',
             title: {
@@ -26,23 +26,22 @@ function BooleanCurveDemo(): React.ReactElement {
             },
             data: [
               {
-                type: 'line',
-                toolTipContent: 'Time {x}: {bool}',
+                type: 'spline',
+                toolTipContent: 'Time {x}: {y}',
                 dataPoints: keys.map((key) => ({
                   x: key.x,
-                  y: key.y ? 1 : 0,
+                  y: key.y,
                   markerType: 'none',
-                  bool: key.y,
                 })),
               },
               {
                 type: 'scatter',
-                toolTipContent: 'Time {x}: {bool}',
+                toolTipContent: 'Time {x}: {y}',
                 dataPoints: curve.keys.map((key) => ({
                   x: key.time,
-                  y: key.value ? 1 : 0,
+                  y: key.value,
                   color: 'lightblue',
-                  bool: key.value,
+                  markerType: 'circle',
                 })),
               },
             ],
@@ -52,4 +51,4 @@ function BooleanCurveDemo(): React.ReactElement {
   );
 }
 
-export default BooleanCurveDemo;
+export default NumberCurveDemo;

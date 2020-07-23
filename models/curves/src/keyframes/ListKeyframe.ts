@@ -3,18 +3,18 @@ import NumberKeyframe from './NumberKeyframe';
 import Easing from '../Easing';
 
 class ListKeyframe extends Keyframe<number[]> {
-    clamp: boolean;
+    truncate: boolean;
 
     constructor(
       time: number,
       value: number[],
       inEasing: Easing = Easing.cubic,
       outEasing: Easing | undefined = undefined,
-      clamp = false,
+      truncate = false,
     ) {
       super(time, value, inEasing, outEasing);
 
-      this.clamp = clamp;
+      this.truncate = truncate;
     }
 
     interpolate(keyframe: ListKeyframe, time: number): number[] {
@@ -24,7 +24,7 @@ class ListKeyframe extends Keyframe<number[]> {
       const defaultNextKeyframe = new NumberKeyframe(this.time, 0, keyframe.inEasing);
 
       const shorter = numberKeyframes.length <= nextNumberKeyframes.length;
-      if (this.clamp ? shorter : !shorter) {
+      if (this.truncate ? shorter : !shorter) {
         return numberKeyframes.map((v, i) => v.interpolate(nextNumberKeyframes[i] ?? defaultKeyframe, time));
       }
 

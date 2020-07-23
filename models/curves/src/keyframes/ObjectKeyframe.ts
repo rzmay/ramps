@@ -33,37 +33,70 @@ class ObjectKeyframe extends Keyframe<object> {
   interpolate(keyframe: ObjectKeyframe, time: number): object {
     const result: object = {};
 
-    Object.keys(this.value).forEach((key) => {
-      // Check if value is color string
-      if (typeof this.value[key] === 'string' && colorString.get(this.value[key]) !== null) {
-        const color = colorString.get(this.value[key]);
-        /*
-         * Solve with rgb keyframes
-         * conversion back to original color model fixes discrepancies
-         * really all that's necessary is a Vector3 keyframe, rgb works
-         */
-        const currentColor = this.colorKeyframe(key);
-        const nextColor = keyframe.colorKeyframe(key);
+    const keysWithDuplicates = Object.keys(this.value).concat(Object.keys(keyframe.value));
+    const keys = keysWithDuplicates.filter((elem, pos) => keysWithDuplicates.indexOf(elem) === pos);
 
-        const colorResult = currentColor.color.interpolate(nextColor.color, time);
-        const alphaResult = currentColor.alpha.interpolate(nextColor.alpha, time);
-
-        // Convert back to color string, set value
-        result[key] = colorString.to[color.model](
-          [colorResult.r, colorResult.g, colorResult.b],
-          alphaResult,
-        );
+    keys.forEach((key) => {
+      // If null, interpolate from next keyframe
+      if (this.value[key] === undefined) {
+        result[key] = keyframe._interpolateKey(this, key, 1 - time);
       } else {
-        // Otherwise check primitives
-        Object.keys(this.conversionMethods).forEach((type) => {
-          // eslint-disable-next-line valid-typeof
-          if (typeof this.value[key] === type) {
-            result[key] = this.conversionMethods[type](key).interpolate(
-              keyframe.conversionMethods[type](key),
-              time,
-            );
-          }
-        });
+        result[key] = this._interpolateKey(keyframe, key, time);
+      }
+    });
+
+    return result;
+  }
+
+  protected _interpolateKey(keyframe: ObjectKeyframe, key: any, time: number): any {
+    let result: any;
+
+    // Check if value is color string
+    if (typeof this.value[key] === 'string' && colorString.get(this.value[key]) !== null) {
+      const color = colorString.get(this.value[key]);
+      /*
+       * Solve with rgb keyframes
+       * conversion back to original color model fixes discrepancies
+       * really all that's necessary is a Vector3 keyframe, rgb works
+       */
+      const currentColor = this.colorKeyframe(key);
+      const nextColor = keyframe.colorKeyframe(key);
+
+      const colorResult = currentColor.color.interpolate(nextColor.color, time);
+      const alphaResult = currentColor.alpha.interpolate(nextColor.alpha, time);
+
+      // Convert back to color string, set value
+      result = colorString.to[color.model](
+        [colorResult.r, colorResult.g, colorResult.b],
+        alphaResult,
+      );
+
+      return result;
+    }
+
+    // Otherwise check primitives
+    Object.keys(this.conversionMethods).forEach((type) => {
+      // eslint-disable-next-line valid-typeof
+      if (typeof this.value[key] === type) {
+        result = this.conversionMethods[type].bind(this)(key).interpolate(
+          keyframe.conversionMethods[type].bind(keyframe)(key),
+          time,
+        );
+
+        /* If checking object, check if array
+        * CONDITIONS:
+        * This key is array OR next key is array
+        * All keys in this object are integers (indices)
+       */
+        const isInt = (n: string): boolean => !isNaN(parseInt(n, 10)) && parseInt(n, 10) === parseFloat(n);
+        if (
+          type === 'object'
+          && (Array.isArray(this.value[key]) || Array.isArray(keyframe.value[key]))
+          && Object.keys(this.value[key]).every(isInt)
+        ) {
+          // Convert to array
+          result = Object.values(result);
+        }
       }
     });
 
@@ -120,7 +153,7 @@ class ObjectKeyframe extends Keyframe<object> {
 
     if (this.value[key] === undefined
       || typeof this.value[key] !== 'string'
-      || colorString.get(this.value[key]) !== null) {
+      || color === null) {
       return {
         color: new RGBColorKeyframe(
           this.time,

@@ -13,6 +13,7 @@ import CurveModifier from './src/CurveModifier';
 import Modifiers from './src/modifiers';
 import ColorHelper from './src/helpers/ColorHelper';
 
+export default Curve;
 export {
   Easing,
   EndBehavior,

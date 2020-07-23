@@ -1,7 +1,7 @@
 import React from 'react';
 import './StringCurveDemo.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Curve } from '../../../..';
+import { Curve, Modifiers } from '../../../..';
 import SecondaryStringDisplay from './SecondaryStringDisplay/SecondaryStringDisplay';
 import CurveDemo from '../CurveDemo/CurveDemo';
 
@@ -23,8 +23,6 @@ function StringCurveDemo(): React.ReactElement {
             axisY: {
               title: 'Value',
               includeZero: false,
-              maximum: 1,
-              minimum: -1,
             },
             axisX: {
               title: 'Time',
@@ -35,7 +33,9 @@ function StringCurveDemo(): React.ReactElement {
                 toolTipContent: 'Time {x}: {text}',
                 dataPoints: keys.map((key) => ({
                   x: key.x,
-                  y: 0,
+                  y: key.y.split('')
+                    .map((char) => char.charCodeAt(0))
+                    .reduce((accumulator, current) => accumulator + current),
                   text: key.y,
                   markerType: 'none',
                 })),
@@ -46,7 +46,9 @@ function StringCurveDemo(): React.ReactElement {
                 toolTipContent: 'Time {x}: {text}',
                 dataPoints: curve.keys.map((key) => ({
                   x: key.time,
-                  y: 0,
+                  y: key.value.split('')
+                    .map((char) => char.charCodeAt(0))
+                    .reduce((accumulator, current) => accumulator + current),
                   text: key.value,
                   indexLabel: key.value,
                   indexLabelBackgroundColor: 'lightblue',

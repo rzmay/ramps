@@ -18,13 +18,13 @@
 
   .time-slider-container {
     margin-top: 5px;
-  }
-}
 
-.rs-slider-graduator > ul > li {
-  visibility: hidden;
+    .rs-slider-graduator > ul > li {
+      visibility: hidden;
 
-  .rs-slider-mark {
-    visibility: visible;
+      .rs-slider-mark {
+        visibility: visible;
+      }
+    }
   }
 }

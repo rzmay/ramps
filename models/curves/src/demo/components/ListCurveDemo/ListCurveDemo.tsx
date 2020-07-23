@@ -17,6 +17,8 @@ function ListCurveDemo(): React.ReactElement {
       type: isKeyframe ? 'scatter' : 'spline',
       color,
       toolTipContent: `${title} at {x}: {y}`,
+      showInLegend: isKeyframe,
+      legendText: title,
       dataPoints: keys.map((key) => ({
         x: key.x,
         y: key.y,

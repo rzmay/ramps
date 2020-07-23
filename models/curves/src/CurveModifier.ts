@@ -12,11 +12,16 @@ abstract class CurveModifier<T> {
     evaluate(curve: Curve<T>, value: T, time: number): T {
       const rangeStart = this.rangeStart * curve.duration + curve.startTime;
       const rangeEnd = this.rangeEnd * curve.duration + curve.startTime;
+      const epsilon = 1e-8;
 
-      if (rangeStart <= time && time <= rangeEnd) {
+      if (rangeStart <= (time + epsilon) && (time - epsilon) <= rangeEnd) {
         return this._modify(value, time);
       }
       return value;
+    }
+
+    modifyExternal(value: T, time: number): T {
+      return this._modify(value, time);
     }
 
     // Optional configuration method

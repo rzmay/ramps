@@ -15,6 +15,12 @@ import ThreeDemoHDRI, { loadHDRI } from '../../ThreeDemo/ThreeDemoHDRI/ThreeDemo
 // eslint-disable-next-line import/no-unresolved
 import * as images from '../../../assets/images/*.*';
 import ThreeDemoCar from './ThreeDemoCar/ThreeDemoCar';
+import ThreeGLTFLoader from '../../ThreeDemo/ThreeGLTFLoader/ThreeGLTFLoader';
+
+// @ts-ignore
+// eslint-disable-next-line import/no-unresolved
+import * as models from '../../../assets/models/*.glb';
+import LoadMultiple from '../../ThreeDemo/LoadMultiple/LoadMultiple';
 
 extend({ OrbitControls });
 
@@ -79,11 +85,69 @@ function ObjectThreeJSDemo(props: ObjectThreeJSDemoProps): React.ReactElement {
       <div className="vector3-demo-canvas-container">
         <Canvas className="three-fiber-canvas" shadowMap>
           <pointLight position={[10, 20, 0]} intensity={1} castShadow />
+          <ambientLight />
           <CameraControls />
+          <ThreeDemoFloor material={floorMaterial} />
+
           <ThreeDemoCar
             carSettings={props.curve.evaluate(time)}
           />
-          <ThreeDemoFloor material={floorMaterial} />
+          <LoadMultiple
+            url={models.easel}
+
+            objects={[{
+              position: [5, 0, 18],
+              scale: [3, 3, 3],
+              rotation: [0, 210, 0].map((deg) => deg * (Math.PI / 180)),
+            },
+            {
+              position: [-1, 0, 18],
+              scale: [3, 3, 3],
+              rotation: [0, 190, 0].map((deg) => deg * (Math.PI / 180)),
+            },
+            {
+              position: [-4, 0, -18],
+              scale: [3, 3, 3],
+              rotation: [0, 20, 0].map((deg) => deg * (Math.PI / 180)),
+            },
+            ]}
+          />
+          <LoadMultiple
+            url={models.cone}
+
+            objects={[{
+              position: [-4, 0, 18],
+              scale: [4, 4, 4],
+              rotation: [0, 210, 0].map((deg) => deg * (Math.PI / 180)),
+            },
+            {
+              position: [-8, 0, 12],
+              scale: [4, 4, 4],
+              rotation: [0, 190, 0].map((deg) => deg * (Math.PI / 180)),
+            },
+            ]}
+          />
+          <LoadMultiple
+            url={models.cone_large}
+
+            objects={[{
+              position: [-7, 0, 20],
+              scale: [3, 3, 3],
+              rotation: [0, 210, 0].map((deg) => deg * (Math.PI / 180)),
+            },
+            {
+              position: [-9, 0, -15],
+              scale: [3, 3, 3],
+              rotation: [0, 190, 0].map((deg) => deg * (Math.PI / 180)),
+            },
+            {
+              position: [3, 0, -14],
+              scale: [3, 3, 3],
+              rotation: [0, 20, 0].map((deg) => deg * (Math.PI / 180)),
+            },
+            ]}
+          />
+
           <Suspense fallback={null}>
             <ThreeDemoHDRI
               urls={[

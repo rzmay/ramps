@@ -1,21 +1,20 @@
-import React, { Suspense, useEffect, useState, useRef } from 'react';
-import { Canvas, Dom, useFrame, extend, useThree } from 'react-three-fiber';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
+import { Canvas, extend } from 'react-three-fiber';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import './ObjectThreeJSDemo.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Slider, RangeSlider } from 'rsuite';
+import { Slider } from 'rsuite';
 import { Curve, Modifiers } from '../../../../..';
 import 'rsuite/dist/styles/rsuite-default.css';
-import { Vector3 } from '../../../../interfaces/Vector3';
-import ThreeDemoFloor from '../../ThreeDemo/ThreeDemoObject/ThreeDemoFloor/ThreeDemoFloor';
+import ThreeDemoFloor from '../../ThreeDemo/ThreeDemoFloor/ThreeDemoFloor';
+import CameraControls from '../../ThreeDemo/CameraControls/CameraControls';
+import ThreeDemoHDRI, { loadHDRI } from '../../ThreeDemo/ThreeDemoHDRI/ThreeDemoHDRI';
 
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
 import * as images from '../../../assets/images/*.*';
-import CameraControls from '../../ThreeDemo/ThreeDemoObject/CameraControls/CameraControls';
-import ThreeDemoBox from '../../ThreeDemo/ThreeDemoObject/ThreeDemoBox/ThreeDemoBox';
-import ThreeDemoHDRI from '../../ThreeDemo/ThreeDemoHDRI/ThreeDemoHDRI';
+import ThreeDemoCar from './ThreeDemoCar/ThreeDemoCar';
 
 extend({ OrbitControls });
 
@@ -27,18 +26,15 @@ interface ObjectThreeJSDemoProps {
 
 function ObjectThreeJSDemo(props: ObjectThreeJSDemoProps): React.ReactElement {
   const [time, setTime] = useState(0);
+  const [hdri, setHDRI] = useState<THREE.Texture>();
   const duration = (props.curve.duration + props.curve.startTime);
   const stepTime = duration / (props.steps ?? 100);
 
   const [floorMaterial] = useState(new THREE.MeshPhysicalMaterial({
-    roughness: 0.8,
-    color: 0xffd9e5,
+    roughness: 0.65,
+    color: 0xc2d5ff,
     normalScale: new THREE.Vector2(1, 1),
     side: THREE.DoubleSide,
-  }));
-
-  const [boxMaterial] = useState(new THREE.MeshPhysicalMaterial({
-    color: 0xffffff,
   }));
 
   useEffect(() => {
@@ -49,60 +45,27 @@ function ObjectThreeJSDemo(props: ObjectThreeJSDemoProps): React.ReactElement {
       map.wrapS = THREE.RepeatWrapping;
       map.wrapT = THREE.RepeatWrapping;
       map.anisotropy = 4;
-      map.repeat.set(8, 8);
+      map.repeat.set(3, 3);
     }
-    textureLoader.load(images.cobblestone_square_diff_1k.jpg, (map) => {
+    textureLoader.load(images.ground_grey_diff_1k.jpg, (map) => {
       setFloorWrapping(map);
       floorMaterial.map = map;
       floorMaterial.needsUpdate = true;
     });
-    textureLoader.load(images.cobblestone_square_Nor_1k.jpg, (map) => {
+    textureLoader.load(images.ground_grey_nor_1k.jpg, (map) => {
       setFloorWrapping(map);
       floorMaterial.normalMap = map;
       floorMaterial.needsUpdate = true;
     });
-    textureLoader.load(images.cobblestone_square_rough_1k.jpg, (map) => {
+    textureLoader.load(images.ground_grey_rough_1k.jpg, (map) => {
       setFloorWrapping(map);
       floorMaterial.roughnessMap = map;
       floorMaterial.needsUpdate = true;
     });
-    textureLoader.load(images.cobblestone_square_AO_1k.jpg, (map) => {
+    textureLoader.load(images.ground_grey_ao_1k.jpg, (map) => {
       setFloorWrapping(map);
       floorMaterial.aoMap = map;
       floorMaterial.needsUpdate = true;
-    });
-    textureLoader.load(images.cobblestone_square_spec_1k.jpg, (map) => {
-      setFloorWrapping(map);
-      floorMaterial.metalnessMap = map;
-      floorMaterial.needsUpdate = true;
-    });
-
-    // Box
-    function setBoxWrapping(map) {
-      map.wrapS = THREE.RepeatWrapping;
-      map.wrapT = THREE.RepeatWrapping;
-      map.anisotropy = 4;
-      map.repeat.set(0.25, 0.25);
-    }
-    textureLoader.load(images.castle_brick_07_diff_1k.jpg, (map) => {
-      setBoxWrapping(map);
-      boxMaterial.map = map;
-      boxMaterial.needsUpdate = true;
-    });
-    textureLoader.load(images.castle_brick_07_nor_1k.jpg, (map) => {
-      setBoxWrapping(map);
-      boxMaterial.normalMap = map;
-      boxMaterial.needsUpdate = true;
-    });
-    textureLoader.load(images.castle_brick_07_rough_1k.jpg, (map) => {
-      setBoxWrapping(map);
-      boxMaterial.roughnessMap = map;
-      boxMaterial.needsUpdate = true;
-    });
-    textureLoader.load(images.castle_brick_07_ao_1k.jpg, (map) => {
-      setBoxWrapping(map);
-      boxMaterial.aoMap = map;
-      boxMaterial.needsUpdate = true;
     });
   }, []);
 
@@ -115,22 +78,23 @@ function ObjectThreeJSDemo(props: ObjectThreeJSDemoProps): React.ReactElement {
     <div className="vector3-demo-container">
       <div className="vector3-demo-canvas-container">
         <Canvas className="three-fiber-canvas" shadowMap>
-          <pointLight position={[0, 10, 0]} intensity={1} castShadow />
+          <pointLight position={[10, 20, 0]} intensity={1} castShadow />
           <CameraControls />
-          <ThreeDemoFloor material={floorMaterial} />
-          <ThreeDemoBox
-            material={boxMaterial}
+          <ThreeDemoCar
+            carSettings={props.curve.evaluate(time)}
           />
+          <ThreeDemoFloor material={floorMaterial} />
           <Suspense fallback={null}>
             <ThreeDemoHDRI
               urls={[
-                images.px.png,
-                images.nx.png,
-                images.py.png,
-                images.ny.png,
-                images.pz.png,
-                images.nz.png,
+                images.q_px.png,
+                images.q_nx.png,
+                images.q_py.png,
+                images.q_ny.png,
+                images.q_pz.png,
+                images.q_nz.png,
               ]}
+              onLoad={setHDRI}
               background
             />
           </Suspense>

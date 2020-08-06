@@ -10,8 +10,34 @@ function ObjectCurveDemo(): React.ReactElement {
   const [time, setTime] = useState(0);
   const backgroundColor = '#f0f0f0';
   const demoCurve: Curve<object> = Curve.objectBuilder(
-    { list: [0, 5, 10], object: { a: 'yo fat mama', b: true, c: 21 } },
-    { list: [5, 'peeny weeny buttwhole', 0] },
+    {
+      color: 'skyblue',
+
+      wheelSpeed: 0,
+      suspension: 0.5,
+
+      lights: {
+        front: false,
+        rear: true,
+        interior: false,
+      },
+    },
+    {
+      color: 'coral',
+
+      wheelSpeed: 5,
+      suspension: -0.5,
+      windowDown: {
+        left: 1,
+        right: 1,
+      },
+
+      lights: {
+        front: true,
+        rear: false,
+        interior: true,
+      },
+    },
     10,
   );
 

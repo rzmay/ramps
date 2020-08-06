@@ -8,13 +8,13 @@ import { Slider, RangeSlider } from 'rsuite';
 import { Curve, Modifiers } from '../../../../..';
 import 'rsuite/dist/styles/rsuite-default.css';
 import { Vector3 } from '../../../../interfaces/Vector3';
-import ThreeDemoFloor from '../../ThreeDemo/ThreeDemoObject/ThreeDemoFloor/ThreeDemoFloor';
+import ThreeDemoFloor from '../../ThreeDemo/ThreeDemoFloor/ThreeDemoFloor';
 
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
 import * as images from '../../../assets/images/*.*';
-import CameraControls from '../../ThreeDemo/ThreeDemoObject/CameraControls/CameraControls';
-import ThreeDemoBox from '../../ThreeDemo/ThreeDemoObject/ThreeDemoBox/ThreeDemoBox';
+import CameraControls from '../../ThreeDemo/CameraControls/CameraControls';
+import ThreeDemoBox from '../../ThreeDemo/ThreeDemoBox/ThreeDemoBox';
 import ThreeDemoHDRI from '../../ThreeDemo/ThreeDemoHDRI/ThreeDemoHDRI';
 
 extend({ OrbitControls });
@@ -124,12 +124,12 @@ function Vector3ThreeJSDemo(props: Vector3ThreeJSDemoProps): React.ReactElement 
           <Suspense fallback={null}>
             <ThreeDemoHDRI
               urls={[
-                images.px.png,
-                images.nx.png,
-                images.py.png,
-                images.ny.png,
-                images.pz.png,
-                images.nz.png,
+                images.v_px.png,
+                images.v_nx.png,
+                images.v_py.png,
+                images.v_ny.png,
+                images.v_pz.png,
+                images.v_nz.png,
               ]}
               background
             />

@@ -6,8 +6,6 @@ import * as serviceWorker from './serviceWorker';
 import './index.css';
 import Home from './pages/Home/Home';
 import ObjectCurveDemo from '../models/curves/src/demo/components/ObjectCurveDemo/ObjectCurveDemo';
-import Vector3CurveDemo from '../models/curves/src/demo/components/Vector3CurveDemo/Vector3CurveDemo';
-import StringCurveDemo from '../models/curves/src/demo/components/StringCurveDemo/StringCurveDemo';
 
 render((
   <BrowserRouter>

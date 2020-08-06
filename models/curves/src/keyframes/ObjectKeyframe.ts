@@ -5,6 +5,7 @@ import BooleanKeyframe from './BooleanKeyframe';
 import StringKeyframe from './StringKeyframe';
 import Easing from '../Easing';
 import RGBColorKeyframe from './RGBColorKeyframe';
+import { Vector3Keyframe } from '../../index';
 
 class ObjectKeyframe extends Keyframe<object> {
   protected conversionMethods: {
@@ -55,7 +56,7 @@ class ObjectKeyframe extends Keyframe<object> {
     if (typeof this.value[key] === 'string' && colorString.get(this.value[key]) !== null) {
       const color = colorString.get(this.value[key]);
       /*
-       * Solve with rgb keyframes
+       * Solve with Vec3 keyframes
        * conversion back to original color model fixes discrepancies
        * really all that's necessary is a Vector3 keyframe, rgb works
        */
@@ -67,7 +68,7 @@ class ObjectKeyframe extends Keyframe<object> {
 
       // Convert back to color string, set value
       result = colorString.to[color.model](
-        [colorResult.r, colorResult.g, colorResult.b],
+        [colorResult.x, colorResult.y, colorResult.z],
         alphaResult,
       );
 
@@ -148,16 +149,16 @@ class ObjectKeyframe extends Keyframe<object> {
     return new ObjectKeyframe(this.time, this.value[key] as object, this.inEasing, this.outEasing);
   }
 
-  colorKeyframe(key: any): { color: RGBColorKeyframe, alpha: NumberKeyframe } {
+  colorKeyframe(key: any): { color: Vector3Keyframe, alpha: NumberKeyframe } {
     const color = colorString.get(this.value[key] ?? 'invalid key');
 
     if (this.value[key] === undefined
       || typeof this.value[key] !== 'string'
       || color === null) {
       return {
-        color: new RGBColorKeyframe(
+        color: new Vector3Keyframe(
           this.time,
-          { r: 255, g: 255, b: 255 },
+          { x: 255, y: 255, z: 255 },
           this.inEasing,
           this.outEasing,
         ),
@@ -166,9 +167,9 @@ class ObjectKeyframe extends Keyframe<object> {
     }
 
     return {
-      color: new RGBColorKeyframe(
+      color: new Vector3Keyframe(
         this.time,
-        { r: color.value[0], g: color.value[1], b: color.value[2] },
+        { x: color.value[0], y: color.value[1], z: color.value[2] },
         this.inEasing,
         this.outEasing,
       ),

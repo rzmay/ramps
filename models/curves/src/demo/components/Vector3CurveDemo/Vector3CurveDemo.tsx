@@ -1,11 +1,10 @@
 import React from 'react';
 import './Vector3CurveDemo.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Curve, Easing, Modifiers } from '../../../..';
+import { Curve } from '../../../..';
 import { Vector3 } from '../../../interfaces/Vector3';
 import CurveDemo from '../CurveDemo/CurveDemo';
 import Vector3ThreeJSDemo from './Vector3ThreeJSDemo/Vector3ThreeJSDemo';
-import Vector3Keyframe from '../../../keyframes/Vector3Keyframe';
 
 function Vector3CurveDemo(): React.ReactElement {
   const demoCurve: Curve<Vector3> = Curve.vector3Builder(

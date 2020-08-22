@@ -1,3 +1,4 @@
+// All time values are measured in seconds
 class RampsClock {
     time: number;
     startTime: number;

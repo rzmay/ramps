@@ -1,7 +1,6 @@
-import { StringKeyframeTrack } from 'three';
+import { Easing } from 'eaz';
 import EndBehavior from './EndBehavior';
 import Keyframe from './keyframes/Keyframe';
-import Easing from './Easing';
 import NumberKeyframe from './keyframes/NumberKeyframe';
 import BezierKeyframe, { BezierHandle } from './keyframes/BezierKeyframe';
 import { RGBColor } from './interfaces/RGBColor';

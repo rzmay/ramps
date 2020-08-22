@@ -1,4 +1,3 @@
-import Easing from './src/Easing';
 import EndBehavior from './src/EndBehavior';
 import Keyframe from './src/keyframes/Keyframe';
 import NumberKeyframe from './src/keyframes/NumberKeyframe';
@@ -15,7 +14,6 @@ import ColorHelper from './src/helpers/ColorHelper';
 
 export default Curve;
 export {
-  Easing,
   EndBehavior,
   Keyframe,
   NumberKeyframe,

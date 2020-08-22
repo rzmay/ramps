@@ -1,6 +1,6 @@
+import { Easing } from 'eaz';
 import Keyframe from './Keyframe';
 import ListKeyframe from './ListKeyframe';
-import Easing from '../Easing';
 
 class StringKeyframe extends Keyframe<string> {
     protected listKeyframe: ListKeyframe;

@@ -1,7 +1,7 @@
 enum EndBehavior {
-    Loop,
     Clamp,
-    PingPong
+    Loop,
+    PingPong,
 }
 
 export default EndBehavior;

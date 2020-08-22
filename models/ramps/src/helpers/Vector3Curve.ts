@@ -1,12 +1,12 @@
 import * as THREE from 'three';
-import { FloatCurve } from '../../../curves';
+import { Curve } from '../../../curves';
 
 class Vector3Curve {
-    x: FloatCurve;
-    y: FloatCurve;
-    z: FloatCurve;
+    x: Curve<number>;
+    y: Curve<number>;
+    z: Curve<number>;
 
-    constructor(x: FloatCurve, y: FloatCurve, z: FloatCurve) {
+    constructor(x: Curve<number>, y: Curve<number>, z: Curve<number>) {
       this.x = x;
       this.y = y;
       this.z = z;

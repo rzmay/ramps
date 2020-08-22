@@ -1,11 +1,12 @@
 import * as THREE from 'three';
 import * as Curves from '../../../curves';
+import { RGBColor } from '../../../curves/src/interfaces/RGBColor';
 
 class RandomBetweenColorCurves {
-    curve1: Curves.ColorCurve;
-    curve2: Curves.ColorCurve;
+    curve1: Curves.Curve<RGBColor>;
+    curve2: Curves.Curve<RGBColor>;
 
-    constructor(first: Curves.ColorCurve, second: Curves.ColorCurve) {
+    constructor(first: Curves.Curve<RGBColor>, second: Curves.Curve<RGBColor>) {
       this.curve1 = first;
       this.curve2 = second;
     }

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CanvasJSReact from '../../../lib/canvasjs/canvasjs.react';
 import './CurveDisplay.scss';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Curve, Modifiers, NumberKeyframe, Easing, EndBehavior } from '../../../../..';
+import { Curve } from '../../../../..';
 
 const { CanvasJS } = CanvasJSReact;
 const { CanvasJSChart } = CanvasJSReact;
@@ -12,17 +11,17 @@ interface CurveDisplayProps<T> {
   steps?: number;
   secondaryDisplay?: React.ReactElement;
   displayGenerator: (curve: Curve<T>, keys: {x: number, y: T}[]) => Object;
+  updater?: number;
 }
 
 function CurveDisplay<T>(props: React.PropsWithChildren<CurveDisplayProps<T>>): React.ReactElement {
   const [options, setOptions] = useState({});
-
-  useEffect(() => {
+  const generateDisplay = () => {
     const curve: Curve<T> = props.curve ?? new Curve<T>();
     const duration = (curve.duration + curve.startTime);
     const steps = props.steps ?? 50;
 
-    const keys: {x: number, y: T}[] = [];
+    const keys: { x: number, y: T }[] = [];
     for (let x = 0; x <= duration; x += duration / steps) {
       const key = { x, y: curve.evaluate(x) };
       keys.push(key);
@@ -31,7 +30,9 @@ function CurveDisplay<T>(props: React.PropsWithChildren<CurveDisplayProps<T>>): 
     const newOptions = props.displayGenerator(curve, keys);
 
     setOptions(newOptions);
-  }, []);
+  };
+
+  useEffect(generateDisplay, []);
 
   return (
     <div className="chart-container">

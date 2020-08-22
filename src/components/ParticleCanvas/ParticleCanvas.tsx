@@ -1,28 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import ParticleScene from './scripts/ParticleScene';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import './ParticleCanvas.scss';
+import { Canvas } from 'react-three-fiber';
+import CameraControls from '../../../models/ThreeDemo/CameraControls/CameraControls';
+import ThreeDemoFloor from '../../../models/ThreeDemo/ThreeDemoFloor/ThreeDemoFloor';
+import ThreeDemoBox from '../../../models/ThreeDemo/ThreeDemoBox/ThreeDemoBox';
 
 function ParticleCanvas(): React.ReactElement {
-  const [didMount, setDidMount] = useState(false);
-
-  const divRef = React.createRef<HTMLDivElement>();
-
-  useEffect(() => {
-    // Ensure that load only fires once
-    if (!didMount) {
-      setDidMount(true);
-
-      const scene = new ParticleScene(divRef);
-
-      scene.start();
-    }
-  }, []);
-
   return (
-    <div
-      className="m-0 p-0 w-100 h-100 particle-canvas"
-      ref={divRef}
-    />
+    <Canvas
+      className="particle-demo-canvas"
+      onCreated={({ gl }) => gl.setClearColor('#202020')}
+      shadowMap
+    >
+      <pointLight position={[10, 20, 0]} intensity={1} castShadow />
+      <ambientLight />
+      <CameraControls />
+      <ThreeDemoFloor width={1000} length={1000} />
+    </Canvas>
   );
 }
 

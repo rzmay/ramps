@@ -8,14 +8,14 @@ import { Slider, RangeSlider } from 'rsuite';
 import { Curve, Modifiers } from '../../../../..';
 import 'rsuite/dist/styles/rsuite-default.css';
 import { Vector3 } from '../../../../interfaces/Vector3';
-import ThreeDemoFloor from '../../ThreeDemo/ThreeDemoFloor/ThreeDemoFloor';
+import ThreeDemoFloor from '../../../../../../ThreeDemo/ThreeDemoFloor/ThreeDemoFloor';
 
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
 import * as images from '../../../assets/images/*.*';
-import CameraControls from '../../ThreeDemo/CameraControls/CameraControls';
-import ThreeDemoBox from '../../ThreeDemo/ThreeDemoBox/ThreeDemoBox';
-import ThreeDemoHDRI from '../../ThreeDemo/ThreeDemoHDRI/ThreeDemoHDRI';
+import CameraControls from '../../../../../../ThreeDemo/CameraControls/CameraControls';
+import ThreeDemoBox from '../../../../../../ThreeDemo/ThreeDemoBox/ThreeDemoBox';
+import ThreeDemoHDRI from '../../../../../../ThreeDemo/ThreeDemoHDRI/ThreeDemoHDRI';
 
 extend({ OrbitControls });
 

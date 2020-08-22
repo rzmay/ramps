@@ -19,7 +19,7 @@ function ObjectCurveDemo(): React.ReactElement {
       lights: {
         front: false,
         rear: true,
-        interior: false,
+        interior: true,
       },
     },
     {

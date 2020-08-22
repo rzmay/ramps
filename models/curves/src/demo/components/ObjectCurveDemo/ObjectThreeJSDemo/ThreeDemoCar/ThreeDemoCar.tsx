@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { useFrame } from 'react-three-fiber';
-import ThreeGLTFLoader from '../../../ThreeDemo/ThreeGLTFLoader/ThreeGLTFLoader';
+import ThreeGLTFLoader from '../../../../../../../ThreeDemo/ThreeGLTFLoader/ThreeGLTFLoader';
 import DemoCarWrapper from './scripts/DemoCarWrapper';
 import { DemoCarSettings } from './scripts/DemoCarSettings';
 
@@ -47,6 +47,8 @@ function ThreeDemoCar(props: ThreeDemoCarProps): React.ReactElement {
 
         // @ts-ignore
         position={[0, 0.5, 0]}
+
+        receiveShadow={false}
       />
     </Suspense>
   );

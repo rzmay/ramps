@@ -1,28 +1,26 @@
 import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { Canvas, extend } from 'react-three-fiber';
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import './ObjectThreeJSDemo.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Slider } from 'rsuite';
 import { Curve, Modifiers } from '../../../../..';
 import 'rsuite/dist/styles/rsuite-default.css';
-import ThreeDemoFloor from '../../ThreeDemo/ThreeDemoFloor/ThreeDemoFloor';
-import CameraControls from '../../ThreeDemo/CameraControls/CameraControls';
-import ThreeDemoHDRI, { loadHDRI } from '../../ThreeDemo/ThreeDemoHDRI/ThreeDemoHDRI';
+import ThreeDemoFloor from '../../../../../../ThreeDemo/ThreeDemoFloor/ThreeDemoFloor';
+import CameraControls from '../../../../../../ThreeDemo/CameraControls/CameraControls';
+import ThreeDemoHDRI, { loadHDRI } from '../../../../../../ThreeDemo/ThreeDemoHDRI/ThreeDemoHDRI';
 
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
 import * as images from '../../../assets/images/*.*';
 import ThreeDemoCar from './ThreeDemoCar/ThreeDemoCar';
-import ThreeGLTFLoader from '../../ThreeDemo/ThreeGLTFLoader/ThreeGLTFLoader';
+import ThreeGLTFLoader from '../../../../../../ThreeDemo/ThreeGLTFLoader/ThreeGLTFLoader';
 
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
 import * as models from '../../../assets/models/*.glb';
-import LoadMultiple from '../../ThreeDemo/LoadMultiple/LoadMultiple';
+import LoadMultiple from '../../../../../../ThreeDemo/LoadMultiple/LoadMultiple';
 
-extend({ OrbitControls });
 
 interface ObjectThreeJSDemoProps {
   curve: Curve<object>;
@@ -81,8 +79,8 @@ function ObjectThreeJSDemo(props: ObjectThreeJSDemoProps): React.ReactElement {
   }
 
   return (
-    <div className="vector3-demo-container">
-      <div className="vector3-demo-canvas-container">
+    <div className="object-demo-container">
+      <div className="object-demo-canvas-container">
         <Canvas className="three-fiber-canvas" shadowMap>
           <pointLight position={[10, 20, 0]} intensity={1} castShadow />
           <ambientLight />

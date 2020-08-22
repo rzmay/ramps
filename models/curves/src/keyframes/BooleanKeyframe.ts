@@ -1,6 +1,6 @@
+import { Easing } from 'eaz';
 import Keyframe from './Keyframe';
 import NumberKeyframe from './NumberKeyframe';
-import Easing from '../Easing';
 
 class BooleanKeyframe extends Keyframe<boolean> {
     solveInterpolation: boolean;

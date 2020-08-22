@@ -1,5 +1,5 @@
 // eslint-disable-next-line max-classes-per-file
-import Easing from '../Easing';
+import { Easing } from 'eaz';
 import Keyframe from './Keyframe';
 import { Curve } from '../..';
 import solveCubic from '../helpers/SolveCubic';

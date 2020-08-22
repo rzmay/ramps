@@ -2,10 +2,10 @@ import * as THREE from 'three';
 import * as Curves from '../../../curves';
 
 class RandomBetweenCurves {
-    curve1: Curves.FloatCurve;
-    curve2: Curves.FloatCurve;
+    curve1: Curves.Curve<number>;
+    curve2: Curves.Curve<number>;
 
-    constructor(first: Curves.FloatCurve, second: Curves.FloatCurve) {
+    constructor(first: Curves.Curve<number>, second: Curves.Curve<number>) {
       this.curve1 = first;
       this.curve2 = second;
     }

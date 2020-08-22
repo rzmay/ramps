@@ -1,4 +1,4 @@
-import Easing from '../Easing';
+import { Easing } from 'eaz';
 import { Curve } from '../..';
 
 abstract class Keyframe<T> {

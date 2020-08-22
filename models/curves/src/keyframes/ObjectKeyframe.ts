@@ -1,9 +1,9 @@
 import colorString from 'color-string';
+import { Easing } from 'eaz';
 import Keyframe from './Keyframe';
 import NumberKeyframe from './NumberKeyframe';
 import BooleanKeyframe from './BooleanKeyframe';
 import StringKeyframe from './StringKeyframe';
-import Easing from '../Easing';
 import RGBColorKeyframe from './RGBColorKeyframe';
 import { Vector3Keyframe } from '../../index';
 

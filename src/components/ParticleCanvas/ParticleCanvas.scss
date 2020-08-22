@@ -1,17 +1,9 @@
-.particle-canvas {
-
-  transition: 0.5s;
-
-  position: absolute;
-
-  left: 0;
-  top: 0;
+.particle-demo-canvas {
+  width: 100vw;
+  height: 100vh;
 
   canvas {
-    opacity: 1;
-
-    position: absolute;
-    left: 0;
-    top: 0;
+    width: 100vw;
+    height: 100vh;
   }
 }

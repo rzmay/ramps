@@ -10,15 +10,23 @@ abstract class RampsModule {
     this.clock = clock ?? this.clock;
   }
 
-  // Used to set values on particle start
-  abstract setup(particle: Particle, particleSystem: ParticleSystem): void;
-
   // Used to update particles each frame
-  abstract influence(particle: Particle): void;
+  influence(particle: Particle): void { /* pass */ }
 
-  execute(particles: Particle[]) {
-    particles.forEach((particle) => { this.influence(particle); });
-  }
+  // Used to update particle system each frame
+  influenceSystem(particleSystem: ParticleSystem): void { /* pass */ }
+
+  // Used to set values on particle start
+  setup(particle: Particle, particleSystem: ParticleSystem): void { /* pass */ }
+
+  // Used to set values on particle system start
+  setupSystem(particleSystem: ParticleSystem): void { /* pass */ }
+
+  // Used to perform logic when a particle is destroyed
+  onParticleDestroy(particle: Particle): void { /* pass */ }
+
+  // Used to perform logic when a particle system is destroyed
+  onSystemDestroy(particleSystem: ParticleSystem): void { /* pass */ }
 }
 
 export default RampsModule;

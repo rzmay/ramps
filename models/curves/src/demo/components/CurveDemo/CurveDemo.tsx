@@ -11,6 +11,7 @@ interface CurveDemoProps<T> {
     steps?: number;
     display?: React.ReactElement;
     displayGenerator?: (curve: Curve<T>, keys: {x: number, y: T}[]) => Object;
+    editor?: boolean;
 }
 
 function CurveDemo<T>(props: React.PropsWithChildren<CurveDemoProps<T>>): React.ReactElement {
@@ -36,8 +37,15 @@ function CurveDemo<T>(props: React.PropsWithChildren<CurveDemoProps<T>>): React.
           </CurveDisplay>
         )}
       <br />
-      <h3>Edit your curve</h3>
-      <CurveEditor curve={props.curve ?? new Curve<T>()} update={setUpdater} />
+      {
+        (props.editor ?? false)
+          ? (
+            <div>
+              <h3>Edit your curve</h3>
+              <CurveEditor curve={props.curve ?? new Curve<T>()} />
+            </div>
+          ) : undefined
+        }
     </div>
   );
 }

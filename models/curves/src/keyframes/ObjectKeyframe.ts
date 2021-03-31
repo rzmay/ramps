@@ -4,7 +4,6 @@ import Keyframe from './Keyframe';
 import NumberKeyframe from './NumberKeyframe';
 import BooleanKeyframe from './BooleanKeyframe';
 import StringKeyframe from './StringKeyframe';
-import RGBColorKeyframe from './RGBColorKeyframe';
 import { Vector3Keyframe } from '../../index';
 
 class ObjectKeyframe extends Keyframe<object> {

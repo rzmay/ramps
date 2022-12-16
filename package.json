@@ -24,7 +24,7 @@
     "eaz": "^1.0.2",
     "ejs": "^3.1.5",
     "es6-tween": "^5.5.11",
-    "express": "~4.16.0",
+    "express": "~4.17.3",
     "express-fileupload": "^1.2.0",
     "firebase-admin": "^8.13.0",
     "formik": "^2.1.5",
